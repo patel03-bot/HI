@@ -71,15 +71,12 @@ button {
 }
 
 /* Meme */
-.meme, .celebrateVideo {
+.meme {
   position: fixed;
+  width: 420px;
   max-width: 90vw;
   z-index: 20;
 }
-
-.meme { width: 420px; }
-.celebrateVideo { width: 420px; border-radius: 20px; }
-
 </style>
 </head>
 
@@ -167,26 +164,14 @@ function celebrate() {
     document.body.appendChild(l);
   }
 
-  // MEME IMAGE
+  // NEW MEME IMAGE
   const meme = document.createElement("img");
-  meme.src = "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif";
+  meme.src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemxpZGtiejNmYXl2N3ZidDlha2JzYWNyeG9wam44bjAxbDlqNG9qZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rjkJD1v80CjYs/giphy.gif";
   meme.className = "meme";
   meme.style.top = "40%";
   meme.style.left = "50%";
   meme.style.transform = "translate(-50%, -50%)";
   document.body.appendChild(meme);
-
-  // CELEBRATION VIDEO
-  const video = document.createElement("video");
-  video.src = "https://media.w3.org/2010/05/sintel/trailer.mp4"; // Example video URL of a man celebrating
-  video.autoplay = true;
-  video.loop = true;
-  video.muted = false;
-  video.className = "celebrateVideo";
-  video.style.top = "65%";
-  video.style.left = "50%";
-  video.style.transform = "translate(-50%, -50%)";
-  document.body.appendChild(video);
 }
 </script>
 
