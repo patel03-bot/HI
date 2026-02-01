@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hetanshi ❤️ Kush</title>
+
+<!-- Confetti & Fireworks -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(0,0,0,0.25);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 650px;
+  text-align: center;
+  z-index: 5;
+}
+
+button {
+  padding: 15px 30px;
+  margin: 12px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#yes { background: #ff4d6d; color: white; }
+#no { background: #444; color: white; position: absolute; }
+#musicBtn {
+  background: white;
+  color: #ff4d6d;
+  margin-bottom: 20px;
+}
+
+/* Lanterns */
+.lantern {
+  position: fixed;
+  bottom: -100px;
+  width: 40px;
+  height: 60px;
+  background: radial-gradient(circle at 50% 30%, #fff6c7, #ff9f1c);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255,200,120,0.8);
+  animation: rise 12s linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes rise {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-130vh); opacity: 0; }
+}
+
+/* Meme */
+.meme, .celebrateVideo {
+  position: fixed;
+  max-width: 90vw;
+  z-index: 20;
+}
+
+.meme { width: 420px; }
+.celebrateVideo { width: 420px; border-radius: 20px; }
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6c6a5f19e0.mp3" type="audio/mp3">
+</audio>
+
+<div class="center" id="proposal">
+  <div class="card">
+    <button id="musicBtn" onclick="startMusic()">Tap to start music ❤️</button>
+
+    <h1>Hey Hetanshi ❤️</h1>
+    <p>
+      This might not be the usual way people ask this…  
+      but you know me — I like doing things a little differently.
+      <br><br>
+      From every laugh, every moment, and even our iconic  
+      <strong>“hi how are you”</strong>,  
+      you’ve become someone really special to me.
+      <br><br>
+      So I wanted to ask you in a language I enjoy…
+      and with all my heart.
+    </p>
+
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <button id="yes" onclick="celebrate()">YES 💕</button>
+    <button id="no" onmouseover="moveNo()">No 😢</button>
+  </div>
+</div>
+
+<script>
+function startMusic() {
+  const music = document.getElementById("music");
+  music.play().catch(() => {
+    alert("Tap again to start music 🎵"); // Handles autoplay restrictions
+  });
+  document.getElementById("musicBtn").style.display = "none";
+}
+
+function moveNo() {
+  const no = document.getElementById("no");
+  no.style.left = Math.random() * 80 + "vw";
+  no.style.top = Math.random() * 80 + "vh";
+}
+
+function celebrate() {
+  document.getElementById("proposal").remove();
+
+  // CONFETTI BLAST
+  const duration = 7000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 8,
+      spread: 100,
+      origin: { x: Math.random(), y: Math.random() - 0.2 },
+      colors: ['#ff4d6d', '#ff758c', '#fff']
+    });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+
+  // FIREWORKS INTERVAL
+  setInterval(() => {
+    confetti({
+      particleCount: 100,
+      spread: 360,
+      startVelocity: 50,
+      decay: 0.9,
+      gravity: 0.5,
+      origin: { x: Math.random(), y: Math.random() * 0.5 },
+      colors: ['#ff4d6d', '#ff758c', '#fff', '#ffe066']
+    });
+  }, 1200);
+
+  // LANTERNS
+  for (let i = 0; i < 25; i++) {
+    const l = document.createElement("div");
+    l.className = "lantern";
+    l.style.left = Math.random() * 100 + "vw";
+    l.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(l);
+  }
+
+  // MEME IMAGE
+  const meme = document.createElement("img");
+  meme.src = "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif";
+  meme.className = "meme";
+  meme.style.top = "40%";
+  meme.style.left = "50%";
+  meme.style.transform = "translate(-50%, -50%)";
+  document.body.appendChild(meme);
+
+  // CELEBRATION VIDEO
+  const video = document.createElement("video");
+  video.src = "https://media.w3.org/2010/05/sintel/trailer.mp4"; // Example video URL of a man celebrating
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = false;
+  video.className = "celebrateVideo";
+  video.style.top = "65%";
+  video.style.left = "50%";
+  video.style.transform = "translate(-50%, -50%)";
+  document.body.appendChild(video);
+}
+</script>
+
+</body>
+</html>
