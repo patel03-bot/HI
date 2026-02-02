@@ -2,62 +2,96 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Hetanshi ❤️ Kush</title>
 
-<!-- Confetti & Fireworks -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  color: white;
+:root {
+  --bg1: #ffd6e7;
+  --bg2: #ffeef6;
+  --card: #ffffffcc;
+  --yes: #ff3b7a;
+  --yesHover: #ff1f68;
 }
 
-.center {
-  position: absolute;
-  inset: 0;
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.page {
+  display: none;
+  width: 100%;
+  height: 100vh;
   justify-content: center;
   align-items: center;
 }
 
+.page.active { display: flex; }
+
 .card {
-  background: rgba(0,0,0,0.25);
-  padding: 40px;
-  border-radius: 20px;
-  max-width: 650px;
+  width: min(720px, 92vw);
+  padding: 26px 22px;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
   text-align: center;
+  box-shadow: 0 18px 60px rgba(0,0,0,.15);
+  position: relative;
   z-index: 5;
 }
 
-button {
-  padding: 15px 30px;
-  margin: 12px;
-  font-size: 1.2em;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
+h1 {
+  font-size: clamp(26px, 4vw, 44px);
+  margin: 12px 0 18px;
 }
 
-#yes { background: #ff4d6d; color: white; }
-#no { background: #444; color: white; position: absolute; }
-#musicBtn {
-  background: white;
-  color: #ff4d6d;
-  margin-bottom: 20px;
+button {
+  padding: 16px 26px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.yes {
+  background: var(--yes);
+  color: white;
+}
+.yes:hover { background: var(--yesHover); }
+
+.no {
+  background: #e5e7eb;
+}
+
+.meme {
+  width: min(420px, 90vw);
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.bouquet {
+  width: min(260px, 80vw);
+  margin: 20px auto;
 }
 
 /* Lanterns */
 .lantern {
-  position: fixed;
-  bottom: -100px;
-  width: 40px;
-  height: 60px;
+  position: absolute;
+  width: 30px;
+  height: 50px;
   background: radial-gradient(circle at 50% 30%, #fff6c7, #ff9f1c);
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255,200,120,0.8);
@@ -66,112 +100,91 @@ button {
 }
 
 @keyframes rise {
-  from { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(100vh); opacity: 1; }
   to { transform: translateY(-130vh); opacity: 0; }
-}
-
-/* Meme */
-.meme {
-  position: fixed;
-  width: 420px;
-  max-width: 90vw;
-  z-index: 20;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6c6a5f19e0.mp3" type="audio/mp3">
-</audio>
-
-<div class="center" id="proposal">
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
   <div class="card">
-    <button id="musicBtn" onclick="startMusic()">Tap to start music ❤️</button>
+    <!-- Husky SVG from code 2 -->
+    <svg width="220" viewBox="0 0 320 260">
+      <defs>
+        <linearGradient id="furDark" x1="0" x2="1">
+          <stop offset="0" stop-color="#9ca3af"/>
+          <stop offset="1" stop-color="#6b7280"/>
+        </linearGradient>
+        <linearGradient id="furLight" x1="0" x2="1">
+          <stop offset="0" stop-color="#f3f4f6"/>
+          <stop offset="1" stop-color="#e5e7eb"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="160" cy="145" rx="90" ry="80" fill="url(#furDark)"/>
+      <ellipse cx="160" cy="165" rx="55" ry="45" fill="url(#furLight)"/>
+      <circle cx="135" cy="145" r="7"/>
+      <circle cx="185" cy="145" r="7"/>
+    </svg>
 
-    <h1>Hey Hetanshi ❤️</h1>
-    <p>
-      This might not be the usual way people ask this…  
-      but you know me — I like doing things a little differently.
-      <br><br>
-      From every laugh, every moment, and even our iconic  
-      <strong>“hi how are you”</strong>,  
-      you’ve become someone really special to me.
-      <br><br>
-      So I wanted to ask you in a language I enjoy…
-      and with all my heart.
-    </p>
+    <h1>Hetanshi, will you be my Valentine? 💖</h1>
+    <button class="yes" onclick="go(2)">YES 💕</button>
+    <button class="no" onmouseover="moveNo(this)">No 😢</button>
+  </div>
+</div>
 
-    <h1>Will you be my Valentine? 💖</h1>
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="card">
+    <img class="meme" src="https://media3.giphy.com/media/rjkJD1v80CjYs/giphy.gif">
+    <h1>Yay! I knew you'd say yes 😍</h1>
+    <button class="yes" onclick="go(3)">I have a gift 🎁</button>
+  </div>
+</div>
 
-    <button id="yes" onclick="celebrate()">YES 💕</button>
-    <button id="no" onmouseover="moveNo()">No 😢</button>
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <div class="card">
+    <img class="bouquet" src="https://i.imgur.com/0hXcZtw.png">
+    <h1>Just a little something for you 🌸</h1>
+    <button class="yes" onclick="go(4)">Next 🌌</button>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <div class="card">
+    <h1>See you tomorrow… ✨</h1>
+    <p>Let’s make up for all the sunny days we missed together 💫</p>
   </div>
 </div>
 
 <script>
-function startMusic() {
-  const music = document.getElementById("music");
-  music.play().catch(() => {
-    alert("Tap again to start music 🎵"); // Handles autoplay restrictions
-  });
-  document.getElementById("musicBtn").style.display = "none";
+function go(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+
+  if (n === 2) confetti({ particleCount: 200, spread: 120 });
+  if (n === 4) lanterns();
 }
 
-function moveNo() {
-  const no = document.getElementById("no");
-  no.style.left = Math.random() * 80 + "vw";
-  no.style.top = Math.random() * 80 + "vh";
+function moveNo(btn) {
+  btn.style.position = "absolute";
+  btn.style.left = Math.random()*70 + "vw";
+  btn.style.top = Math.random()*70 + "vh";
 }
 
-function celebrate() {
-  document.getElementById("proposal").remove();
-
-  // CONFETTI BLAST
-  const duration = 7000;
-  const end = Date.now() + duration;
-
-  (function frame() {
-    confetti({
-      particleCount: 8,
-      spread: 100,
-      origin: { x: Math.random(), y: Math.random() - 0.2 },
-      colors: ['#ff4d6d', '#ff758c', '#fff']
-    });
-    if (Date.now() < end) requestAnimationFrame(frame);
-  })();
-
-  // FIREWORKS INTERVAL
-  setInterval(() => {
-    confetti({
-      particleCount: 100,
-      spread: 360,
-      startVelocity: 50,
-      decay: 0.9,
-      gravity: 0.5,
-      origin: { x: Math.random(), y: Math.random() * 0.5 },
-      colors: ['#ff4d6d', '#ff758c', '#fff', '#ffe066']
-    });
-  }, 1200);
-
-  // LANTERNS
+function lanterns() {
+  const page = document.getElementById("p4");
   for (let i = 0; i < 25; i++) {
     const l = document.createElement("div");
     l.className = "lantern";
-    l.style.left = Math.random() * 100 + "vw";
-    l.style.animationDelay = Math.random() * 5 + "s";
-    document.body.appendChild(l);
+    l.style.left = Math.random()*100 + "vw";
+    l.style.animationDelay = Math.random()*10 + "s";
+    page.appendChild(l);
   }
-
-  // NEW MEME IMAGE
-  const meme = document.createElement("img");
-  meme.src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemxpZGtiejNmYXl2N3ZidDlha2JzYWNyeG9wam44bjAxbDlqNG9qZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rjkJD1v80CjYs/giphy.gif";
-  meme.className = "meme";
-  meme.style.top = "40%";
-  meme.style.left = "50%";
-  meme.style.transform = "translate(-50%, -50%)";
-  document.body.appendChild(meme);
 }
 </script>
 
